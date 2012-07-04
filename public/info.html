@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+
+<script src="./js/jquery.easing.1.3.js" type="text/javascript" charset="UTF-8"></script>
+
+<script src="https://raw.github.com/xlune/jQuery-vGrid-Plugin/master/jquery.vgrid.min.js" type="text/javascript" charset="UTF-8"></script>
+
+
+<style type="text/css">
+
+body {
+	padding: 10px;
+	margin: 0;
+	background: #d8fcc5;
+}
+#message1 {
+	display: inline-block;
+	width: 6em;
+	text-align: center;
+	background: green;
+	visibility: hidden;
+	color: #FFFFFF;
+}
+#message2 {
+	display: inline-block;
+	width: 6em;
+	text-align: center;
+	background: red;
+	visibility: hidden;
+	color: #FFFFFF;
+}
+#grid-content {
+	overflow: hidden;
+	height: 0;
+}
+#grid-content div {
+	width: auto;
+	height: auto;
+	margin: 5px;
+	padding: 3px;
+}
+#grid-content div.wn {
+	width: 200px;
+}
+#grid-content div.wl {
+	width: 400px;
+}
+#grid-content div.hn {
+	height: 80px;
+}
+#grid-content div.hl {
+	height: 160px;
+}
+#grid-content div h3 {
+	line-height: 1.1em;
+	margin: 0;
+	padding: 0;
+}
+#grid-content div p {
+	margin: 0;
+	padding: 0;
+}
+
+.cat {
+ position: relative;
+}
+
+.cat a {
+ display: block;
+}
+
+a.goods-menu {
+}
+a.delete {
+ position: absolute;
+ top: 20px;
+ right: 0px;
+}
+
+h1,h2,h3 {
+	color: #b9d7a8;
+}
+
+#additem, #hsort, #rsort {
+	color: #b9d7a8;
+	background-color: #daffc7;
+}
+
+
+</style>
+<script type="text/javascript">
+
+
+
+$(function(){
+
+	var hsort_flg = false;
+
+	//setup
+	var vg = $("#grid-content").vgrid({
+		easing: "easeOutQuint",
+		time: 400,
+		delay: 20,
+		fadeIn: {
+			time: 500,
+			delay: 50
+		}
+	});
+
+	//add item
+	$("#additem").click(function(e){
+
+		var _sec = parseInt(Math.random() * 5 + 1);
+
+		var _item = $('<div class="cat">\<h3>maru0' + _sec + '</h3>\
+			<a href="#" class="goods-menu">\
+			<img src="/assets/maru0' + _sec + '.png">\</a>\
+			<a href="#" class="delete">\<img src="/assets/close_button_black_w30.png" width="30" height="30" />\</a>\
+			</div>')
+			.fadeTo(0, 0);
+
+		vg.prepend(_item);
+		vg.vgrefresh(null, null, null, function(){
+			_item.fadeTo(300, 1);
+		});
+		hsort_flg = true;
+	});
+
+	//動画表示
+	$(".goods-menu").live('click', function(e){
+
+		var _item = $('<div class="cat">\
+			<h3>スコティッシュフィールドもみもみ</h3>\
+			<object style="height: 390px; width: 640px">\
+				<param name="movie" value="http://www.youtube.com/v/HgcGu1R2M-s?version=3&feature=player_detailpage">\
+				<param name="allowFullScreen" value="true">\
+				<param name="allowScriptAccess" value="always">\
+				<embed src="http://www.youtube.com/v/HgcGu1R2M-s?version=3&feature=player_detailpage" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="360">\
+			</object>\
+			<a href="#" class="delete"><img src="/assets/close_button_black_w30.png" width="30" height="30" />\
+			</a>\
+		</div>')
+		.fadeTo(0, 0);
+
+		vg.prepend(_item);
+		vg.vgrefresh(null, null, null, function(){
+			_item.fadeTo(300, 1);
+		});
+		hsort_flg = true;
+	});
+
+
+
+
+	//delete
+	vg.find(".cat .delete").live('click', function(e){
+		$(this).parent().fadeOut(200, function(){
+			$(this).remove();
+			vg.vgrefresh();
+		});
+		return false;
+	});
+
+	//sort
+	$("#hsort").click(function(e){
+		hsort_flg = !hsort_flg;
+		$("#grid-content").vgsort(function(a, b){
+			var _a = $(a).find('h3').text();
+			var _b = $(b).find('h3').text();
+			var _c = hsort_flg ? 1 : -1 ;
+			return (_a > _b) ? _c * -1 : _c ;
+		}, "easeInOutExpo", 300, 0);
+		return false;
+	});
+	$("#rsort").click(function(e){
+		$("#grid-content").vgsort(function(a, b){
+			return Math.random() > 0.5 ? 1 : -1 ;
+		}, "easeInOutExpo", 300, 20);
+		hsort_flg = true;
+		return false;
+	});
+
+
+
+});
+
+</script>
+</head>
+<body>
+<div id="container">
+	<div id="header">
+		<h1>ねこh1</h1>
+	</div>
+
+	<h2>ねこh2</h2>
+
+
+	<form action="#" method="get" style="margin-bottom:10px;">
+		<input type="button" id="additem" value="ねこをふやす" />
+		<input type="button" id="hsort" value="名前でならべる" />
+		<input type="button" id="rsort" value="ランダムでならべる" />
+	</form>
+
+	<div id="grid-content">
+		<div class="cat">
+			<h3>maru01</h3>
+			<a href="#" class="goods-menu"><%= image_tag 'maru01.png' %></a>
+			<a href="#" class="delete"><%= image_tag 'close_button_black_w30.png' %></a>
+		</div>
+		<div class="cat">
+			<h3>maru02</h3>
+			<a href="#" class="goods-menu"><%= image_tag 'maru02.png' %></a>
+			<a href="#" class="delete"><%= image_tag 'close_button_black_w30.png' %></a>
+		</div>
+		<div class="cat">
+			<h3>maru03</h3>
+			<a href="#" class="goods-menu"><%= image_tag 'maru03.png' %></a>
+			<a href="#" class="delete"><%= image_tag 'close_button_black_w30.png' %></a>
+		</div>
+		<div class="cat">
+			<h3>maru04</h3>
+			<a href="#" class="goods-menu"><%= image_tag 'maru04.png' %></a>
+			<a href="#" class="delete"><%= image_tag 'close_button_black_w30.png' %></a>
+		</div>
+		<div class="cat">
+			<h3>maru05</h3>
+			<a href="#" class="goods-menu"><%= image_tag 'maru05.png' %></a>
+			<a href="#" class="delete"><%= image_tag 'close_button_black_w30.png' %></a>
+		</div>
+		<div class="cat">
+			<h3>maru06</h3>
+			<a href="#" class="goods-menu"><%= image_tag 'maru06.png' %></a>
+			<a href="#" class="delete"><%= image_tag 'close_button_black_w30.png' %></a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
