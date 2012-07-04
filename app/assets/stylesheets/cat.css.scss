@@ -1,3 +1,81 @@
 // Place all the styles related to the Cat controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	padding: 10px;
+	margin: 0;
+	background: #d8fcc5;
+}
+#message1 {
+	display: inline-block;
+	width: 6em;
+	text-align: center;
+	background: green;
+	visibility: hidden;
+	color: #FFFFFF;
+}
+#message2 {
+	display: inline-block;
+	width: 6em;
+	text-align: center;
+	background: red;
+	visibility: hidden;
+	color: #FFFFFF;
+}
+#grid-content {
+	overflow: hidden;
+	height: 0;
+}
+#grid-content div {
+	width: auto;
+	height: auto;
+	margin: 5px;
+	padding: 3px;
+}
+#grid-content div.wn {
+	width: 200px;
+}
+#grid-content div.wl {
+	width: 400px;
+}
+#grid-content div.hn {
+	height: 80px;
+}
+#grid-content div.hl {
+	height: 160px;
+}
+#grid-content div h3 {
+	line-height: 1.1em;
+	margin: 0;
+	padding: 0;
+}
+#grid-content div p {
+	margin: 0;
+	padding: 0;
+}
+
+.cat {
+ position: relative;
+}
+
+.cat a {
+ display: block;
+}
+
+a.goods-menu {
+}
+a.delete {
+ position: absolute;
+ top: 20px;
+ right: 0px;
+}
+
+h1,h2,h3 {
+	color: #b9d7a8;
+}
+
+#additem, #hsort, #rsort {
+	color: #b9d7a8;
+	background-color: #daffc7;
+}
