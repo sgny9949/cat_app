@@ -1,6 +1,9 @@
 CatApp::Application.routes.draw do
+ # get "cats/info"
+
+#  resources :cats
 #  get "cat/info"
-  root to: 'cat#info'  
+  root to: 'cats#info'  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
